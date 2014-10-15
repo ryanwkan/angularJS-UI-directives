@@ -9,7 +9,7 @@
 app.directive('btnCls', function () {
     return {
       replace: true,
-      template: '<div ng-click="confirmAction()"></div>',
+      template: '<div data-ng-click="confirmAction()"></div>',
       restrict: 'A',
       scope: {
         submit: '&',
@@ -18,8 +18,10 @@ app.directive('btnCls', function () {
         loadText: '@',
         confirmText: '@',
         text: '@',
-        confirmClass: '@'
+        confirmClass: '@',
+        countdown: '@'
       },
+
       controller: function($scope, $element, $timeout, $interval){
         var confirmed = false,
             loadSpin = $scope.loadSpin,
@@ -27,6 +29,7 @@ app.directive('btnCls', function () {
             loadText = $scope.loadText,
             confirmText = $scope.confirmText,
             confirmClass = $scope.confirmClass,
+            countdown = $scope.countdown,
             text = $scope.text;
         var timer;
         var interval;
@@ -37,9 +40,11 @@ app.directive('btnCls', function () {
           loadText = loadText === undefined ? 'Processing' : loadText;
           confirmText = confirmText === undefined ? 'Are you sure?' : confirmText;
           confirmClass = confirmClass === undefined ? 'btn-danger' : confirmClass;
+          countdown = countdown === undefined ? 'true' : countdown;
           text = text === undefined ? 'Submit' : text;
 
           $element.text(text);
+
         })();
 
         $scope.confirmAction = function(){
@@ -49,7 +54,9 @@ app.directive('btnCls', function () {
             $element.text(confirmText);
             var i = 5;
             interval = $interval(function(){
-              $element.text(confirmText + ' ... ' + i );
+              if (countdown === 'true'){
+                $element.text(confirmText + ' ... ' + i );
+              }
               i--;
             },1000);
 
@@ -64,15 +71,13 @@ app.directive('btnCls', function () {
           }
           else{
             $timeout.cancel(timer);
-            $element.text(loadText);
-            $element.removeClass(confirmClass);
+            $interval.cancel(interval);
+            $element.text(loadText).prepend('<i class="fa fa-circle-o-notch fa-spin"></i> ')
+                .addClass('disabled')
+                .removeClass(confirmClass);
             $scope.submit();
           }
         };
-
-        $scope.cancelAction = function(){
-          alert('cancelled');
-        }
 
       }
 

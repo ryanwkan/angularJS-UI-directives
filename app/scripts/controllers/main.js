@@ -14,4 +14,8 @@ angular.module('angularJsUiDirectivesApp')
       'AngularJS',
       'Karma'
     ];
+
+    $scope.someFunction = function(){
+      alert('some function called!');
+    };
   });

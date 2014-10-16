@@ -40,7 +40,7 @@ app.directive('btnCls', function () {
           loadSpin = loadSpin === undefined ? 'true' : loadSpin;
           loadConfirm = loadConfirm === undefined ? 'true' : loadConfirm;
           loadText = loadText === undefined ? 'Processing' : loadText;
-          confirmText = confirmText === undefined ? 'confirm '+text+'?' : confirmText;
+          confirmText = confirmText === undefined ? 'Confirm ' + (text === undefined ? 'submit' : text) + '?' : confirmText;
           confirmClass = confirmClass === undefined ? 'btn-danger' : confirmClass;
           countdown = countdown === undefined ? 'true' : countdown;
           text = text === undefined ? 'Submit' : text;
@@ -61,6 +61,7 @@ app.directive('btnCls', function () {
               }
               i--;
             },1000);
+
 
             $element.addClass(confirmClass);
 
@@ -84,7 +85,9 @@ app.directive('btnCls', function () {
       }
 
 //      link: function (scope, element, attrs) {
-//        element.text(scope.text);
+//        element.bind('click', function(e){
+//          e.preventDefault();
+//        });
 //      }
     };
   });

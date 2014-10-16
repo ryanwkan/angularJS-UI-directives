@@ -15,8 +15,12 @@ angular.module('angularJsUiDirectivesApp')
       'Karma'
     ];
 
-    $scope.someFunction = function(){
-      alert('some function called!'  );
+    $scope.someFunction = function(string){
+      alert('some function called!' + string );
 
+    };
+
+    $scope.doNotFire = function(){
+      alert('should not see this');
     };
   });

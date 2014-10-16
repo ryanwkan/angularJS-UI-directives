@@ -6,6 +6,8 @@
  * @description
  * # btnCls
  */
+
+/*global app:false */
 app.directive('btnCls', function () {
     return {
       replace: true,
@@ -38,7 +40,7 @@ app.directive('btnCls', function () {
           loadSpin = loadSpin === undefined ? 'true' : loadSpin;
           loadConfirm = loadConfirm === undefined ? 'true' : loadConfirm;
           loadText = loadText === undefined ? 'Processing' : loadText;
-          confirmText = confirmText === undefined ? 'Are you sure?' : confirmText;
+          confirmText = confirmText === undefined ? 'confirm '+text+'?' : confirmText;
           confirmClass = confirmClass === undefined ? 'btn-danger' : confirmClass;
           countdown = countdown === undefined ? 'true' : countdown;
           text = text === undefined ? 'Submit' : text;
